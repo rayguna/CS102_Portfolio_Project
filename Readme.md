@@ -1,13 +1,15 @@
 ### The Housing Dataset Recommendation System
 
 #### TOC
+
 1. [About the Project](# 1)
 2. [The Recommendation System](# 2)
-3. [Conclusions][# 3]
+3. [Conclusions](# 3)
 
 ***
 
 #### <a name="1"> 1. About the Project</a>
+
 This project uses the open-source housing dataset that can be loaded from the scikitlearn python library as follows:
 
 ```
@@ -33,9 +35,9 @@ California Housing dataset
 **Data Set Characteristics:**
 
     :Number of Instances: 20640
-
+    
     :Number of Attributes: 8 numeric, predictive attributes and the target
-
+    
     :Attribute Information:
         - MedInc        median income in block group
         - HouseAge      median house age in block group
@@ -45,7 +47,7 @@ California Housing dataset
         - AveOccup      average number of household members
         - Latitude      block group latitude
         - Longitude     block group longitude
-
+    
     :Missing Attribute Values: None
 
 This dataset was obtained from the StatLib repository.
@@ -73,12 +75,11 @@ It can be downloaded/loaded using the
       Statistics and Probability Letters, 33 (1997) 291-297
 
 #### <a name="2"> 2. The Recommendation System </a>
+
 ---Work in progress
 
 #### <a name="3"> 3. Conclusions </a>
+
 ---Work in progress
 
 ***
-
-
-[def]: #3
