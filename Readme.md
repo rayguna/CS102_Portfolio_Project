@@ -1,70 +1,84 @@
-### The Boston Housing Dataset Recommendation System
+### The Housing Dataset Recommendation System
 
-This project uses the open-source Boston housing dataset that can be loaded from the scikitlearn python library as follows:
+#### TOC
+1. [About the Project](# 1)
+2. [The Recommendation System](# 2)
+3. [Conclusions][# 3]
+
+***
+
+#### <a name="1"> 1. About the Project</a>
+This project uses the open-source housing dataset that can be loaded from the scikitlearn python library as follows:
 
 ```
-from sklearn import datasets
+from sklearn.datasets import fetch_california_housing
 import pandas as pd
-boston = datasets.load_boston()
 
-df_boston=pd.DataFrame(boston.data, columns=boston.feature_names)
-df_boston.head()
+housing = fetch_california_housing()
 ```
 
 To view the description of the dataset, type:
 
 ```
-print(boston.DESCR)
+print(housing.DESCR)
 ```
 
 The output is as follows:
 
-.. _boston_dataset:
+.. _california_housing_dataset:
 
-Boston house prices dataset
----------------------------
+California Housing dataset
+--------------------------
 
 **Data Set Characteristics:**
 
-    :Number of Instances: 506
-    
-    :Number of Attributes: 13 numeric/categorical predictive. Median Value (attribute 14) is usually the target.
-    
-    :Attribute Information (in order):
-        - CRIM     per capita crime rate by town
-        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.
-        - INDUS    proportion of non-retail business acres per town
-        - CHAS     Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
-        - NOX      nitric oxides concentration (parts per 10 million)
-        - RM       average number of rooms per dwelling
-        - AGE      proportion of owner-occupied units built prior to 1940
-        - DIS      weighted distances to five Boston employment centres
-        - RAD      index of accessibility to radial highways
-        - TAX      full-value property-tax rate per $10,000
-        - PTRATIO  pupil-teacher ratio by town
-        - B        1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
-        - LSTAT    % lower status of the population
-        - MEDV     Median value of owner-occupied homes in $1000's
-    
+    :Number of Instances: 20640
+
+    :Number of Attributes: 8 numeric, predictive attributes and the target
+
+    :Attribute Information:
+        - MedInc        median income in block group
+        - HouseAge      median house age in block group
+        - AveRooms      average number of rooms per household
+        - AveBedrms     average number of bedrooms per household
+        - Population    block group population
+        - AveOccup      average number of household members
+        - Latitude      block group latitude
+        - Longitude     block group longitude
+
     :Missing Attribute Values: None
-    
-    :Creator: Harrison, D. and Rubinfeld, D.L.
 
-This is a copy of UCI ML housing dataset.
-https://archive.ics.uci.edu/ml/machine-learning-databases/housing/
+This dataset was obtained from the StatLib repository.
+https://www.dcc.fc.up.pt/~ltorgo/Regression/cal_housing.html
 
-This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University.
+The target variable is the median house value for California districts,
+expressed in hundreds of thousands of dollars ($100,000).
 
-The Boston house-price data of Harrison, D. and Rubinfeld, D.L. 'Hedonic
-prices and the demand for clean air', J. Environ. Economics & Management,
-vol.5, 81-102, 1978.   Used in Belsley, Kuh & Welsch, 'Regression diagnostics
-...', Wiley, 1980.   N.B. Various transformations are used in the table on
-pages 244-261 of the latter.
+This dataset was derived from the 1990 U.S. census, using one row per census
+block group. A block group is the smallest geographical unit for which the U.S.
+Census Bureau publishes sample data (a block group typically has a population
+of 600 to 3,000 people).
 
-The Boston house-price data has been used in many machine learning papers that address regression
-problems.
+An household is a group of people residing within a home. Since the average
+number of rooms and bedrooms in this dataset are provided per household, these
+columns may take surpinsingly large values for block groups with few households
+and many empty houses, such as vacation resorts.
+
+It can be downloaded/loaded using the
+:func:`sklearn.datasets.fetch_california_housing` function.
 
 .. topic:: References
 
-- Belsley, Kuh & Welsch, 'Regression diagnostics: Identifying Influential Data and Sources of Collinearity', Wiley, 1980. 244-261.
-- Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.
+    - Pace, R. Kelley and Ronald Barry, Sparse Spatial Autoregressions,
+      Statistics and Probability Letters, 33 (1997) 291-297
+
+#### <a name="2"> 2. The Recommendation System </a>
+---Work in progress
+
+#### <a name="3"> 3. Conclusions </a>
+---Work in progress
+
+***
+
+
+[def]: #3
