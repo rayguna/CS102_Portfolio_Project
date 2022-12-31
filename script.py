@@ -7,13 +7,20 @@ refs:
 1. heapq: https://www.geeksforgeeks.org/heap-queue-or-heapq-in-python/; https://realpython.com/python-heapq-module/
 2. map plotting: https://www.bigendiandata.com/2017-06-27-Mapping_in_Jupyter/
 3. python sorting library: https://pypi.org/project/sorting/
+4. converting latitude and longitude to distance: https://towardsdatascience.com/calculating-distance-between-two-geolocations-in-python-26ad3afe287b?gi=972a94d8e007
 
 To-dos:
 *SORTING
  -Use a tuple to label each row and later reconcile the sorted column with the dataframe.
+ -Plot only the map of the filtered dataset!
 
 *SEARCHING
  -Select and implement a search algorithm that goes by log(N) to iteratively filter the dataset using multiple criteria. 
+
+12302022
+-Added relative distance column w.r.t. average lat and long.
+-Looking to add some sort of meaningful distance to create a graph, perhaps to the nearest major city.
+-Consider what to do with the graph data structure.
 """
 
 from sklearn.datasets import fetch_california_housing
@@ -30,6 +37,9 @@ print("Loading dataset... Please wait...")
 housing = fetch_california_housing()
 #make a dataframe
 df_housing=pd.DataFrame(housing.data,columns=housing.feature_names)
+#add distance from the first row.
+#latitude, longitude
+df_housing['rel_distance']=calc_rel_distance(df_housing)
 
 
 print("""

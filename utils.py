@@ -1,4 +1,9 @@
 import sorting
+import haversine as hs #the output is in km
+from haversine import Unit
+
+
+
 
 def view_criteria(housing, criteria):
     """Let user view the description of the housing dataset
@@ -107,3 +112,17 @@ def perform_merge_sort(housing, col, sort_type='asc'):
         return lst_sorted_data[:-26:-1]
     else:
         print("Please specify a valid sort type ('asc' or 'desc').")
+
+def calc_rel_distance(df_housing):
+    """Convert two locations to a relative distance in miles
+
+       input: 
+        loc1 (tuple of floats): (lat1, long1) 
+        loc2 (tuple of floats): (lat1, long1)
+    """
+
+
+    avg_lat_long=(df_housing.Latitude.mean(), df_housing.Longitude.mean()) #the average latitude and longitude
+    df_rel_dist=df_housing.apply(lambda x: hs.haversine((x.Latitude, x.Longitude),(avg_lat_long), unit=Unit.MILES), axis=1)
+    
+    return df_rel_dist 
