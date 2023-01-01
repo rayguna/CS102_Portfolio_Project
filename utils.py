@@ -1,6 +1,9 @@
 import sorting
 import haversine as hs #the output is in km
 from haversine import Unit
+from random import randint
+
+import pandas as pd
 
 
 
@@ -26,6 +29,12 @@ def select_sorting_column(housing, sort_type):
        inputs:
         housing (list): a list of the housing dataset
         sort_type (str): 'asc' or 'desc'
+
+       return:
+        None
+    
+       output:
+        print the sorted list in a form of a dataframe
     """
 
     sort_col=input("Please select the sorting column from the following, %s:" %housing.feature_names)
@@ -33,7 +42,21 @@ def select_sorting_column(housing, sort_type):
     if sort_col in housing.feature_names:
         #print(heap_sort(df_housing, sort_col, sort_type))
         #use merge sort
-        print(perform_merge_sort(housing, sort_col, sort_type))
+        #print(perform_merge_sort(housing, sort_col, sort_type))
+        #or
+        #use quick sort
+        col_idx=housing.feature_names.index(sort_col)
+        res=perform_quick_sort(housing.data,col_idx)
+        
+        if sort_type=='asc': #return first 100 elements of sorted
+            res=res[:100]
+
+        elif sort_type=='desc': #return the last 100 elements of reverse sorted
+            res=res[:-101:-1]
+
+        #convert result to dataframe for easy viewing
+        df_sorted_housing=pd.DataFrame(res, columns=housing.feature_names)
+        print(df_sorted_housing.to_string()) #show all 100 elements
 
     else:
         select_sorting_column(housing, sort_type)
@@ -68,7 +91,7 @@ def select_to_do(housing, df_housing):
         sort_type=input("How do you want to sort the data ('asc' or 'desc')?")
         select_sorting_column(housing, sort_type)
     
-    elif to_do=='2': #filter
+    elif to_do=='2': #filtering
         print("Work in progress...")
 
     elif to_do=='3': #view x rows of data
@@ -90,10 +113,14 @@ def select_to_do(housing, df_housing):
     select_to_do(housing, df_housing)
 
 def perform_merge_sort(housing, col, sort_type='asc'):
-    """Turn dataset into a min or max heap.
+    """Turn dataset into a min or max heap. 
+        --- Currently not being used. Using perform_quick_sort instead. 
+
+       Limitation: Only perform sorting of a 1D array.
+                   For sorting a 2d array, use the perform_quick_sort function instead.
 
        inputs: 
-        df_data (dataframe): a dataframe input dataset
+        housing (obj): the housing dataset object
         col (str): column name which needs to be sorted
         type (str): 'asc' or 'desc'
 
@@ -121,8 +148,46 @@ def calc_rel_distance(df_housing):
         loc2 (tuple of floats): (lat1, long1)
     """
 
-
     avg_lat_long=(df_housing.Latitude.mean(), df_housing.Longitude.mean()) #the average latitude and longitude
     df_rel_dist=df_housing.apply(lambda x: hs.haversine((x.Latitude, x.Longitude),(avg_lat_long), unit=Unit.MILES), axis=1)
     
     return df_rel_dist 
+
+
+def perform_quick_sort(lst_housing, col_idx):
+    """Perform a quick sort on a 2d array on selected index of the sub-array.
+
+       input:
+        lst_housing (2d array): the california housing data, housing.data.
+        col_idx (int): housing dataset column index 
+
+       output:
+        (2d array): a sorted 2d list.
+    """
+
+    #return the result if the input array contains fewer than two elements
+    if len(lst_housing) < 2:
+        return lst_housing
+
+    lst_low, lst_same, lst_high = [], [], []
+
+    #Randomly select the pivot element
+    pivot = lst_housing[randint(0, len(lst_housing) - 1)]
+
+    for item in lst_housing:
+        #compare element corresponding to col_idx
+        
+        # low list: elements < pivot
+        if item[col_idx] < pivot[col_idx]:
+            lst_low.append(item)
+        # same list: elements=pivot
+        elif item[col_idx] == pivot[col_idx]:
+            lst_same.append(item)
+        # high list: elements > pivot 
+        elif item[col_idx] > pivot[col_idx]:
+            lst_high.append(item)
+
+    # res: combine sorted low list with same and high list
+    # no need to specify the sorted_type
+    res=perform_quick_sort(lst_low, col_idx) + lst_same + perform_quick_sort(lst_high, col_idx)
+    return res

@@ -8,6 +8,7 @@ refs:
 2. map plotting: https://www.bigendiandata.com/2017-06-27-Mapping_in_Jupyter/
 3. python sorting library: https://pypi.org/project/sorting/
 4. converting latitude and longitude to distance: https://towardsdatascience.com/calculating-distance-between-two-geolocations-in-python-26ad3afe287b?gi=972a94d8e007
+5. quicksort algorithm: https://realpython.com/sorting-algorithms-python/
 
 To-dos:
 *SORTING
@@ -21,6 +22,22 @@ To-dos:
 -Added relative distance column w.r.t. average lat and long.
 -Looking to add some sort of meaningful distance to create a graph, perhaps to the nearest major city.
 -Consider what to do with the graph data structure.
+
+01012022
+-Added perform_quick_sort for sorting a 2d array.
+-Need to look into a multi-criteria filtering. 
+ Should I filter the data by a combination of searching and sorting?
+ In other words, I first search for numbers that are greater than the min
+  and a number that is less than the max, and then perform a sort
+  that place the numbers in order starting with the identified min 
+  and the identified max. Or, I can simply perform a sort of numbers
+  that are larger than the min and smaller than the max to cut down on
+  the time complexity.  
+
+Status:
+    (1) sort by column - done
+    (2) filter - work in progress
+    (3) view x rows of data - done
 """
 
 from sklearn.datasets import fetch_california_housing
