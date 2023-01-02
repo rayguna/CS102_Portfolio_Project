@@ -2,7 +2,7 @@
 
 #### TOC
 
-1. [About the Project]()
+1. About the Project
 2. The Recommendation System
 3. Conclusions
 
