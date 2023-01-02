@@ -25,7 +25,17 @@ This project consists of the following files:
 - Readme.md: the current file that describes the project.
 - requirements.txt: contains the list of installed python packages.
 
-This project has been tested on an anaconda environment with python version 3.9. A minimal anaconda environment was build using the command: conda create --name minimal_py39 --no-default-packages python=3.9. The needed packages are then installed using the conda install commands. The list of installed packages have been exported to a requirements.txt file using the command pip freeze > requirements.txt.
+This project has been tested on an anaconda environment with python version 3.9. A minimal anaconda environment was build using the command: 
+
+```
+conda create --name minimal_py39 --no-default-packages python=3.9.
+```
+
+The needed packages are then installed using the conda install commands. The list of installed packages have been exported to a requirements.txt file using the command: 
+
+```
+pip freeze > requirements.txt
+```
 
 This project uses the open-source housing dataset that can be loaded from the scikitlearn python library as follows:
 
