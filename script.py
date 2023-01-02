@@ -28,16 +28,23 @@ To-dos:
 -Need to look into a multi-criteria filtering. 
  Should I filter the data by a combination of searching and sorting?
  In other words, I first search for numbers that are greater than the min
-  and a number that is less than the max, and then perform a sort
+  and a first number that is greater than the max, and then perform a sort
   that place the numbers in order starting with the identified min 
   and the identified max. Or, I can simply perform a sort of numbers
   that are larger than the min and smaller than the max to cut down on
   the time complexity.  
+-In contrary to what I thought, a binary sort tree (e.g., min heap) is not the same as the
+ binary search tree, so I will not employ the binary sort tree to do the initial sorting.
 
 Status:
     (1) sort by column - done
-    (2) filter - work in progress
+    (2) filter - done
     (3) view x rows of data - done
+
+Limitation/future inprovement:
+-If the entered min/max value of the filtering function does not match with any of 
+  the values in the column, it may throw an error. One solution is to convert the
+   column values to integer and restrict the user to only enter integers.
 """
 
 from sklearn.datasets import fetch_california_housing
@@ -78,9 +85,9 @@ df_housing.plot(kind="scatter", x="Longitude", y="Latitude",
 plt.legend()
 plt.show()
 
-criteria=input("Welcome to California! Would you like to view the available list of housing criteria (y/n)?")
-view_criteria(housing, criteria)
+print("Welcome to California!")
+#criteria=input("Welcome to California! Would you like to view the available list of housing criteria (y/n)?")
+view_criteria(housing)
 
 #print(df_housing.head()) #check
 select_to_do(housing, df_housing)
-

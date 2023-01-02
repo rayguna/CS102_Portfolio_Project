@@ -1,14 +1,15 @@
-import sorting
+#import sorting
 import haversine as hs #the output is in km
 from haversine import Unit
 from random import randint
 
 import pandas as pd
 
+import matplotlib.pyplot as plt
 
 
 
-def view_criteria(housing, criteria):
+def view_criteria(housing):
     """Let user view the description of the housing dataset
 
        inputs:
@@ -16,14 +17,16 @@ def view_criteria(housing, criteria):
         criteria: 'y' or 'n'
     """
 
+    criteria=input("Please enter 'y' or 'n' to view the available list of housing criteria. ")
+
     if criteria=='y':
         print(housing.DESCR)
-    elif criteria=='n':
+    elif criteria=='n': 
         pass
     else:
-        print("Please enter 'y' or 'n' to view the available list of housing criteria.")
+        view_criteria(housing)
 
-def select_sorting_column(housing, sort_type):
+def sort_by_column(housing, sort_type):
     """Let user select the sorting column
 
        inputs:
@@ -37,29 +40,31 @@ def select_sorting_column(housing, sort_type):
         print the sorted list in a form of a dataframe
     """
 
-    sort_col=input("Please select the sorting column from the following, %s:" %housing.feature_names)
+    #sort_col=input("Please select the sorting column from the following, %s:" %housing.feature_names)
     
-    if sort_col in housing.feature_names:
-        #print(heap_sort(df_housing, sort_col, sort_type))
-        #use merge sort
-        #print(perform_merge_sort(housing, sort_col, sort_type))
-        #or
-        #use quick sort
-        col_idx=housing.feature_names.index(sort_col)
-        res=perform_quick_sort(housing.data,col_idx)
-        
-        if sort_type=='asc': #return first 100 elements of sorted
-            res=res[:100]
+    col_idx=select_column(housing)
 
-        elif sort_type=='desc': #return the last 100 elements of reverse sorted
-            res=res[:-101:-1]
+    #if sort_col in housing.feature_names:
+    
+    #print(heap_sort(df_housing, sort_col, sort_type))
+    #use merge sort
+    #print(perform_merge_sort(housing, sort_col, sort_type))
+    #or
+    #use quick sort
+    #col_idx=housing.feature_names.index(sort_col)
 
-        #convert result to dataframe for easy viewing
-        df_sorted_housing=pd.DataFrame(res, columns=housing.feature_names)
-        print(df_sorted_housing.to_string()) #show all 100 elements
+    res=perform_quick_sort(housing.data,col_idx)
+    
+    if sort_type=='asc': #return first 100 elements of sorted
+        res=res[:100]
 
-    else:
-        select_sorting_column(housing, sort_type)
+    elif sort_type=='desc': #return the last 100 elements of reverse sorted
+        res=res[:-101:-1]
+
+    #convert result to dataframe for easy viewing
+    df_sorted_housing=pd.DataFrame(res, columns=housing.feature_names)
+    print(df_sorted_housing.to_string()) #show all 100 elements
+
 
 def view_all_data(df_housing, no_rows):
     """View all of the housing data for a specified number of rows
@@ -75,6 +80,28 @@ def view_all_data(df_housing, no_rows):
         print("Please enter a valid number.")
         view_all_data(no_rows)
 
+def select_column(housing):
+    """Recursively ask user to select a valid column
+    
+       Inputs:
+        housing (obj): the california housing dataset object
+        col_name (str): any of the columns names within housing.data
+
+       Outputs:
+        col_idx (int): index number corresponding to the valid, selected column. 
+    """
+
+    sort_col=input("Please select the sorting column from the following, %s:" %housing.feature_names)
+
+    if sort_col in housing.feature_names:
+        
+        col_idx=housing.feature_names.index(sort_col)
+        return col_idx
+
+    else:
+        select_column(housing)
+
+
 def select_to_do(housing, df_housing):
     """Let user decide what to do
 
@@ -89,13 +116,45 @@ def select_to_do(housing, df_housing):
     to_do=input("What would you like to do? Select from the following: (1) View the top or bottom 20 sorted list, (2) Filter housing data, or (3) View all data. Otherwise, press 'q' to quit, or press 'v' to view the available list of housing criteria.")
     if to_do=='1':#sort by column
         sort_type=input("How do you want to sort the data ('asc' or 'desc')?")
-        select_sorting_column(housing, sort_type)
+        sort_by_column(housing, sort_type)
     
     elif to_do=='2': #filtering
-        print("Work in progress...")
-
-    elif to_do=='3': #view x rows of data
         
+        try:
+            lst_housing=housing.data        
+            col_idx=select_column(housing)
+
+            print("CHECK INDEX")
+            print(col_idx)
+
+            #get min and max limits
+            min_limit=min(df_housing.iloc[:,col_idx])
+            max_limit=max(df_housing.iloc[:,col_idx])
+
+            #must convert from string input to float
+            get_min=float(input("Please enter the minimum value between %s and %s: " %(min_limit, max_limit)))
+            get_max=float(input("Please enter the maximum value between %s and %s: " %(min_limit, max_limit)))
+
+            lst_filtered_housing_data=filter_data_by_one_criteria(lst_housing, col_idx, get_min, get_max) #a list of filtered data
+            #print(lst_filtered_housing_data)
+
+            #print into a dataframe for easy viewing
+            df_filtered_housing_data=pd.DataFrame(lst_filtered_housing_data, columns=housing.feature_names)
+            print(df_filtered_housing_data.to_string()) #display all data
+
+            #show the housing locations
+            df_filtered_housing_data.plot(kind="scatter", x="Longitude", y="Latitude",
+                s=df_filtered_housing_data['Population']/100, label="Population",
+                c="MedInc", cmap=plt.get_cmap("summer"),
+                colorbar=True, alpha=0.6, marker='8')
+            plt.legend()
+            plt.show()
+
+        except:
+            print("Error plotting data. Please try again.")
+
+        
+    elif to_do=='3': #view x rows of data
         no_rows=input("How many rows of data would you like to view?")
         view_all_data(df_housing, no_rows)
 
@@ -126,6 +185,9 @@ def perform_merge_sort(housing, col, sort_type='asc'):
 
        output:
         a sorted dataset (list)  
+
+       *This function is currently not being used because it only works with a 1d array input.
+         The housing dataset is a 2d array.
     """
 
     #sort use sorting library
@@ -162,7 +224,7 @@ def perform_quick_sort(lst_housing, col_idx):
         col_idx (int): housing dataset column index 
 
        output:
-        (2d array): a sorted 2d list.
+        lst_res (2d array): a sorted 2d list.
     """
 
     #return the result if the input array contains fewer than two elements
@@ -189,5 +251,91 @@ def perform_quick_sort(lst_housing, col_idx):
 
     # res: combine sorted low list with same and high list
     # no need to specify the sorted_type
-    res=perform_quick_sort(lst_low, col_idx) + lst_same + perform_quick_sort(lst_high, col_idx)
-    return res
+    lst_res=perform_quick_sort(lst_low, col_idx) + lst_same + perform_quick_sort(lst_high, col_idx)
+    return lst_res
+
+
+def perform_binary_search(lst_sorted_housing, col_idx, low, high, search_value):
+    """Perform a binary search on a sorted list
+
+       Inputs:
+        lst_sorted_housing (2d array):
+        col_idx (int): column index of the lst_sorted_housing data
+        search_value (int): the value to search which can be a min or a max 
+
+       Output:
+        idx (int): The index of the first value that satisfies the search value.
+
+       Issue:
+        There are multiple indices having the search value and you need to include all of it.
+        Binary search only finds one of the many recurring values in the list.
+
+       Solution:
+        Accomodated this issue by doing a linear search along the solution - see the end of 
+         filter_data_by_one_criteria() function.
+    """
+
+    # Base case
+    if high >= low:
+        mid = (high + low) // 2
+
+        # Element present at the middle
+        if lst_sorted_housing[mid][col_idx] == search_value:
+            return mid
+        # Element < mid in left subarray
+        elif lst_sorted_housing[mid][col_idx] > search_value:
+            return perform_binary_search(lst_sorted_housing, col_idx, low, mid - 1, search_value)
+        # Element > mid in right subarray
+        else:
+            return perform_binary_search(lst_sorted_housing, col_idx, mid + 1, high, search_value)
+
+    else:
+        # Element not found
+        return -1
+
+
+def filter_data_by_one_criteria(lst_housing, col_idx, min_val, max_val):
+    """Filter a 2d array by col_idx column to yield values between min and max
+       Approach: 
+        First, sort the dat by col_idx.
+        Next, perform a binary search.
+    
+       Inputs:
+        lst_housing (2d array): the housing dataset.
+        col_idx (int): the housing dataset column index
+        min_val (int): minimum value
+        max_val (int): maximum value
+
+       Output:
+        lst_res (2d array): a filtered 2d list  
+    """
+
+    #first, sort the data by col_idx
+    lst_sorted_housing=perform_quick_sort(lst_housing, col_idx)
+    #second, use a binary search to find the first value > min
+    # and to find the first value > max.
+    min_idx=perform_binary_search(lst_sorted_housing, col_idx, 0, len(lst_sorted_housing)-1, min_val) #lst_sorted_housing, col_idx, low, high, search_value
+    max_idx=perform_binary_search(lst_sorted_housing, col_idx, 0, len(lst_sorted_housing)-1, max_val)
+
+    #update to the actual min_idx and max_idx values. 
+    #find the first min_idx because binary search randomly finds one of the multiples occurrence of the search_value 
+    
+    track_min_idx=min_idx
+    track_max_idx=max_idx
+
+    for item in lst_sorted_housing[min_idx::-1]: #traverse in reverse
+        if item[col_idx]==min_val:
+            track_min_idx-=1
+        else: #stop tracking
+            break
+    
+    #find the last max_idx because binary search randomly finds one of the multiples occurrence of the search_value
+    for item in lst_sorted_housing[max_idx:]: #traverse in reverse
+        if item[col_idx]==max_val:
+            track_max_idx+=1
+        else: #stop tracking
+            break
+    
+
+    lst_filtered_housing_data=lst_sorted_housing[track_min_idx:track_max_idx]
+    return lst_filtered_housing_data 

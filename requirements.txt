@@ -1,0 +1,24 @@
+cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
+fonttools==4.25.0
+haversine==2.7.0
+joblib @ file:///tmp/build/80754af9/joblib_1635411271373/work
+kiwisolver @ file:///C:/ci/kiwisolver_1653274190210/work
+matplotlib @ file:///C:/ci/matplotlib-suite_1647441845039/work
+mkl-fft==1.3.1
+mkl-random @ file:///C:/ci/mkl_random_1626186172375/work
+mkl-service==2.4.0
+munkres==1.1.4
+numpy==1.24.1
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1670530880680/work
+pandas==1.5.2
+Pillow==9.0.1
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.7
+scikit-learn @ file:///C:/ci/scikit-learn_1642617300924/work
+scipy @ file:///C:/ci_310/scipy_1644006742166/work
+sip==4.19.13
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+sorting==1.0.3
+threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
+tornado @ file:///C:/ci/tornado_1606942375796/work
