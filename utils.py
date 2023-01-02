@@ -40,7 +40,7 @@ def sort_by_column(housing, sort_type):
         print the sorted list in a form of a dataframe
     """
 
-    #sort_col=input("Please select the sorting column from the following, %s:" %housing.feature_names)
+    #sort_col=input("Please select the sorting column from the following, %s: " %housing.feature_names)
     
     col_idx=select_column(housing)
 
@@ -123,9 +123,6 @@ def select_to_do(housing, df_housing):
         try:
             lst_housing=housing.data        
             col_idx=select_column(housing)
-
-            print("CHECK INDEX")
-            print(col_idx)
 
             #get min and max limits
             min_limit=min(df_housing.iloc[:,col_idx])

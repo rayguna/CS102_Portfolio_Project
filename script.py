@@ -54,40 +54,44 @@ from utils import *
 
 
 
+def main():
+  
+  print("Loading dataset... Please wait...")
 
-print("Loading dataset... Please wait...")
-
-#load the housing dataset
-housing = fetch_california_housing()
-#make a dataframe
-df_housing=pd.DataFrame(housing.data,columns=housing.feature_names)
-#add distance from the first row.
-#latitude, longitude
-df_housing['rel_distance']=calc_rel_distance(df_housing)
+  #load the housing dataset
+  housing = fetch_california_housing()
+  #make a dataframe
+  df_housing=pd.DataFrame(housing.data,columns=housing.feature_names)
+  #add distance from the first row.
+  #latitude, longitude
+  df_housing['rel_distance']=calc_rel_distance(df_housing)
 
 
-print("""
-*************************
-*                       *
-* WELCOME TO CALIFORNIA *
-*                       *
-*************************
-""")
+  print("""
+  *************************
+  *                       *
+  * WELCOME TO CALIFORNIA *
+  *                       *
+  *************************
+  """)
 
-print("Dataset loading is complete!")
-print("Please close the map to proceed.")
+  print("Dataset loading is complete!")
+  print("Please close the map to proceed.")
 
-#show the housing locations
-df_housing.plot(kind="scatter", x="Longitude", y="Latitude",
-    s=df_housing['Population']/100, label="Population",
-    c="MedInc", cmap=plt.get_cmap("summer"),
-    colorbar=True, alpha=0.6, marker='8')
-plt.legend()
-plt.show()
+  #show the housing locations
+  df_housing.plot(kind="scatter", x="Longitude", y="Latitude",
+      s=df_housing['Population']/100, label="Population",
+      c="MedInc", cmap=plt.get_cmap("summer"),
+      colorbar=True, alpha=0.6, marker='8')
+  plt.legend()
+  plt.show()
 
-print("Welcome to California!")
-#criteria=input("Welcome to California! Would you like to view the available list of housing criteria (y/n)?")
-view_criteria(housing)
+  print("Welcome to California!")
+  #criteria=input("Welcome to California! Would you like to view the available list of housing criteria (y/n)?")
+  view_criteria(housing)
 
-#print(df_housing.head()) #check
-select_to_do(housing, df_housing)
+  #print(df_housing.head()) #check
+  select_to_do(housing, df_housing)
+
+if __name__ == '__main__':
+  main()

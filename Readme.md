@@ -10,7 +10,12 @@
 
 #### 1. About the Project
 
-This project provides a hands-on experience to work with selected sorting and searching algorithm on a large dataset. I have selected the quick sort and binary search algorithms due to their popularity and reasonable time complexities (i.e., O(n*log(n)) and O(log(n)), respectively).
+This is a command-line application for sorting and filtering the California housing dataset. The user will be given a list of houses that meet the user's criteria based on any of the following options:
+ (1) View the top or bottom 100 sorted list.
+ (2) Filter housing data.
+ (3) View all data.
+
+This project provided me with a hands-on experience to work with selected sorting and searching algorithm on a large dataset. I have selected the quick sort and binary search algorithms due to their popularity and reasonable time complexities (i.e., O(n*log(n)) and O(log(n)), respectively).
 
 This project consists of the following files:
 
@@ -107,9 +112,10 @@ Below shows the first 10 rows of the housing dataset (Table 1), along with the p
 ```
 
 ![housing_dataset_plot](plot_housing_dataset.png)
+
 **Figure 1. A plot of the housing dataset.**
 
-Running the script.py program will load the california housing dataset and display the above plot. To proceed, the user should close the map and decide whether to view the available list of housing criteria (y/n). After that, the user can select from the following three options:
+Running the script.py program will load the california housing dataset and display the above plot. Close the map to proceed and decide whether to view the available list of housing criteria (y/n). After that, select from the following three options:
 
  (1) View the top or bottom 20 sorted list.
  (2) Filter housing data.
@@ -117,11 +123,11 @@ Running the script.py program will load the california housing dataset and displ
 
 #### 3. Conclusions
 
-From this project, I learned to implement the quick sort and binary search algorithms and realize the challenges with implementing such algorithms from scratch, as follows: 
+From this project, I learned to implement the quick sort and binary search algorithms and realized the challenges with implementing such algorithms from scratch, as follows: 
 
-- The efficiency of the sorting and searching algorithms depend on the choice of algorithms. 
+- The efficiency of the sorting and searching algorithms depends on the choice of algorithms. 
 - The binary search algorithm searches for a specific value in a list. I had to, therefore, add a linear search algorithm to extract the rest of the duplicated elements in the list. Moreover, the binary search algorithm will not yield any values if the search criteria does not coincide with any of the values in the list. 
 
-The search, sort, and filter functions that are put together in this project can be easily and more efficiently implemented using python built-in modules or python libraries (e.g., pandas). For instance, filtering and sorting can be done on pandas dataframe using the logical operators and the sort_values() method, respectively. 
+Nonetheless, the search, sort, and filter functions that are put together in this project can be easily and more efficiently implemented using python built-in modules or python libraries (e.g., pandas). For instance, filtering and sorting can be done on pandas dataframe using the logical operators and the sort_values() method, respectively. 
 
 ***
