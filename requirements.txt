@@ -11,7 +11,7 @@ munkres==1.1.4
 numpy==1.24.1
 packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1670530880680/work
 pandas==1.5.2
-Pillow==10.0.1
+#Pillow==10.0.1 #removed due to vulnerability warning
 pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
 python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
 pytz==2022.7
